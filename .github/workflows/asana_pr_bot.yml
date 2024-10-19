@@ -27,7 +27,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install
@@ -36,19 +36,19 @@ jobs:
       - name: Run AsanaPRBot for PRs
         if: github.event_name == 'pull_request'
         run: |
-          node fetch_prs.js \
+          node asana_ai_reviewer.js \
             --pr-number ${{ github.event.number }} \
             --github-token ${{ steps.generate_token.outputs.token }} \
-            --openai-token ${{ secrets.OPENAI_API_TOKEN }}
+            --openai-token ${{ secrets.OPENAI_API_KEY }}
         working-directory: AsanaPRBot
 
       - name: Run AsanaPRBot for PR comments
         if: github.event_name == 'issue_comment' && github.event.issue.pull_request
         run: |
-          node fetch_prs.js \
+          node asana_ai_reviewer.js \
             --pr-number ${{ github.event.issue.number }} \
             --comment-id ${{ github.event.comment.id }} \
             --github-token ${{ steps.generate_token.outputs.token }} \
-            --openai-token ${{ secrets.OPENAI_API_TOKEN }}
+            --openai-token ${{ secrets.OPENAI_API_KEY }}
         working-directory: AsanaPRBot
 

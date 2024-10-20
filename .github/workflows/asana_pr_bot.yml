@@ -39,7 +39,7 @@ jobs:
           node asana_ai_reviewer.js \
             --pr-number ${{ github.event.number }} \
             --github-token ${{ steps.generate_token.outputs.token }} \
-            --openai-token ${{ secrets.OPENAI_API_TOKEN }}
+            --openai-token ${{ secrets.OPENAI_API_KEY }}
         working-directory: AsanaPRBot
 
       - name: Run AsanaPRBot for PR comments
@@ -49,6 +49,6 @@ jobs:
             --pr-number ${{ github.event.issue.number }} \
             --comment-id ${{ github.event.comment.id }} \
             --github-token ${{ steps.generate_token.outputs.token }} \
-            --openai-token ${{ secrets.OPENAI_API_TOKEN }}
+            --openai-token ${{ secrets.OPENAI_API_KEY }}
         working-directory: AsanaPRBot
 
